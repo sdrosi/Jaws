@@ -13,7 +13,9 @@ var passportSetup = require('./config/passport-setup');
 var passport = require('passport');
 var keys = require('./config/keys.js');
 
-
+if (process.env.JAWSDB_URL) {
+  var connection = mysql.createConnection(process.env.JAWSDB_URL)
+} else {
 // Sets up the Express App
 // =============================================================
 var app = express();
@@ -24,7 +26,7 @@ app.use(cookieSession({
   maxAge: 1800000,
   keys: [keys.session.cookieKey]
 }));
-
+};
 
 app.use(passport.initialize());
 // express.session();
